@@ -59,3 +59,31 @@ alwaysApply: true
 - User views calendar by week or month and verifies events display correctly
 - User sets a reminder and verifies that it triggers (mocked or test notification)
 - User searches for an event and verifies the correct result is shown
+
+## Recurrence Type Selection
+- Users can select recurrence type when creating or editing events
+- Available recurrence types: Daily, Weekly, Monthly, Yearly
+- **Monthly Rule**: If selecting monthly on the 31st, create only on the 31st of each month (not on month end)
+- **Yearly Rule**: If selecting yearly on February 29th, create only on February 29th (not on February 28th in non-leap years)
+
+## Recurring Event Display
+- Recurring events should be visually distinguished in calendar view
+- Use icons, tags, or any visual indicators to differentiate recurring events from regular events
+- Ensure clear visual representation of recurrence patterns
+
+## Recurrence End Conditions
+- Users can specify when recurrence should end
+- Available options:
+  - Until specific date (e.g., until 2025-10-30)
+  - After specific number of occurrences
+  - No end date (infinite recurrence)
+
+## Single Event Modification
+- When editing a recurring event, it should become a single event
+- Remove recurrence icon/indicator after modification
+- The modified event should no longer follow the original recurrence pattern
+
+## Single Event Deletion
+- When deleting a recurring event, only delete that specific occurrence
+- Other occurrences in the series should remain unaffected
+- Maintain the original recurrence pattern for remaining events

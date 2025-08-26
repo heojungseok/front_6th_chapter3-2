@@ -1,0 +1,61 @@
+---
+description: require rules
+globs: ["src/**/*.{ts,tsx}", "src/**/*.test.{ts,tsx}", "src/**/*.spec.{ts,tsx}"]
+alwaysApply: true
+---
+# Calendar App Testing Strategy (Kent's Philosophy)
+
+## Core Principles
+- Follow Test-Driven Development (TDD) approach
+- Prioritize user experience testing over implementation details
+- Focus on Testing Trophy strategy with integration tests as primary focus
+
+## Test Priority Order
+1. **Integration Tests (Highest Priority)**: Test full flows connecting API, database, and UI
+2. **Unit Tests**: Basic testing for small utility functions
+3. **E2E Tests (Minimal)**: Keep to minimum, focus development effort on integration testing
+
+## Testing Guidelines
+- Write tests that verify user behavior, not internal implementation
+- Test complete user scenarios rather than isolated units
+- Ensure tests cover the actual user experience flow
+- Avoid over-testing implementation details
+
+## What to Avoid
+- Testing internal implementation specifics
+- Spending excessive time on E2E tests
+- Writing tests that don't reflect user behavior
+- Testing private methods or internal state
+
+## Calendar-Specific Test Cases
+
+### Unit Tests (Small utilities and pure functions)
+- Validate date calculations (addDays, daysBetween, end-of-month handling)
+- Validate recurrence rule parsing (Daily, Weekly, Monthly, Yearly)
+- Validate input fields (title, description, location, tags, categories)
+- Validate overlap detection logic for events
+- Validate leap year and February 29 handling for yearly recurrence
+- Validate 31st day handling for monthly recurrence
+
+### Integration Tests (Full flow of event management)
+- Create, view, edit, and delete events via API and ensure database reflects changes
+- Set and retrieve event details: title, date, start time, end time, description, location
+- Assign and retrieve tags or categories via API and ensure proper storage
+- Set reminders and verify they are stored and triggered correctly
+- Search events via API and ensure correct results are returned
+- Detect and warn overlapping events through full flow
+- Create and display recurring events correctly according to recurrence rules
+- Edit a single occurrence of a recurring event and verify only that instance is updated
+- Delete a single occurrence of a recurring event and verify only that instance is deleted
+- Check that public holidays are returned correctly in API responses and displayed in the UI
+
+### E2E Tests (Minimal critical user flows)
+- User logs in and creates a new event, then verifies it appears on the calendar view
+- User edits an event and verifies the changes are displayed correctly
+- User deletes an event and verifies it is removed from the calendar
+- User creates a recurring event and verifies recurrence icons appear
+- User edits a single occurrence of a recurring event and verifies only that instance changes
+- User deletes a single occurrence of a recurring event and verifies only that instance is removed
+- User views calendar by week or month and verifies events display correctly
+- User sets a reminder and verifies that it triggers (mocked or test notification)
+- User searches for an event and verifies the correct result is shown

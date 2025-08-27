@@ -1,27 +1,60 @@
 ---
 description: require rules
-globs: ["src/**/*.{ts,tsx}", "src/**/*.test.{ts,tsx}", "src/**/*.spec.{ts,tsx}"]
+globs: ['src/**/*.{ts,tsx}', 'src/**/*.test.{ts,tsx}', 'src/**/*.spec.{ts,tsx}']
 alwaysApply: true
 ---
+
 # Calendar App Testing Strategy (Kent's Philosophy)
 
 ## Core Principles
+
 - Follow Test-Driven Development (TDD) approach
+- **TDD Red-Green-Refactor Cycle:**
+  1. **Red**: Write failing test code first (test for unimplemented functionality)
+  2. **Green**: Write minimal implementation code to make the test pass
+  3. **Refactor**: Refactor both implementation and test code to improve quality
+
+## TDD Implementation Guidelines
+
+### Red Phase (Write Failing Test)
+
+- Define clear requirements for the functionality to be implemented
+- Write tests for functionality that doesn't exist yet
+- Tests must fail (Red state)
+- Test names should follow the pattern "what functionality should do what under what conditions"
+
+### Green Phase (Make Test Pass)
+
+- Write minimal code only to make the test pass
+- Focus on test passing rather than code quality at this stage
+- Hardcoding or temporary solutions are acceptable
+- Tests must succeed (Green state)
+
+### Refactor Phase (Code Refactoring)
+
+- Refactor both implementation and test code
+- Remove duplicate code, improve readability, enhance structure
+- Tests must still pass after refactoring
+- Focus on improving code quality and maintainability
+
 - Prioritize user experience testing over implementation details
 - Focus on Testing Trophy strategy with integration tests as primary focus
 
 ## Test Priority Order
+
 1. **Integration Tests (Highest Priority)**: Test full flows connecting API, database, and UI
 2. **Unit Tests**: Basic testing for small utility functions
 3. **E2E Tests (Minimal)**: Keep to minimum, focus development effort on integration testing
 
 ## Testing Guidelines
+
 - Write tests that verify user behavior, not internal implementation
 - Test complete user scenarios rather than isolated units
 - Ensure tests cover the actual user experience flow
 - Avoid over-testing implementation details
 
 ## What to Avoid
+
 - Testing internal implementation specifics
 - Spending excessive time on E2E tests
 - Writing tests that don't reflect user behavior
@@ -30,6 +63,7 @@ alwaysApply: true
 ## Calendar-Specific Test Cases
 
 ### Unit Tests (Small utilities and pure functions)
+
 - Validate date calculations (addDays, daysBetween, end-of-month handling)
 - Validate recurrence rule parsing (Daily, Weekly, Monthly, Yearly)
 - Validate input fields (title, description, location, tags, categories)
@@ -38,6 +72,7 @@ alwaysApply: true
 - Validate 31st day handling for monthly recurrence
 
 ### Integration Tests (Full flow of event management)
+
 - Create, view, edit, and delete events via API and ensure database reflects changes
 - Set and retrieve event details: title, date, start time, end time, description, location
 - Assign and retrieve tags or categories via API and ensure proper storage
@@ -50,6 +85,7 @@ alwaysApply: true
 - Check that public holidays are returned correctly in API responses and displayed in the UI
 
 ### E2E Tests (Minimal critical user flows)
+
 - User logs in and creates a new event, then verifies it appears on the calendar view
 - User edits an event and verifies the changes are displayed correctly
 - User deletes an event and verifies it is removed from the calendar
@@ -61,17 +97,20 @@ alwaysApply: true
 - User searches for an event and verifies the correct result is shown
 
 ## Recurrence Type Selection
+
 - Users can select recurrence type when creating or editing events
 - Available recurrence types: Daily, Weekly, Monthly, Yearly
 - **Monthly Rule**: If selecting monthly on the 31st, create only on the 31st of each month (not on month end)
 - **Yearly Rule**: If selecting yearly on February 29th, create only on February 29th (not on February 28th in non-leap years)
 
 ## Recurring Event Display
+
 - Recurring events should be visually distinguished in calendar view
 - Use icons, tags, or any visual indicators to differentiate recurring events from regular events
 - Ensure clear visual representation of recurrence patterns
 
 ## Recurrence End Conditions
+
 - Users can specify when recurrence should end
 - Available options:
   - Until specific date (e.g., until 2025-10-30)
@@ -79,11 +118,13 @@ alwaysApply: true
   - No end date (infinite recurrence)
 
 ## Single Event Modification
+
 - When editing a recurring event, it should become a single event
 - Remove recurrence icon/indicator after modification
 - The modified event should no longer follow the original recurrence pattern
 
 ## Single Event Deletion
+
 - When deleting a recurring event, only delete that specific occurrence
 - Other occurrences in the series should remain unaffected
 - Maintain the original recurrence pattern for remaining events

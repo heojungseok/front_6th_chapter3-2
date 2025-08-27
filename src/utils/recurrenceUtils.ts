@@ -37,10 +37,11 @@ export function getNextRecurrenceDate(
     case 'monthly': {
       // 31일에 매월 반복인 경우, 31일에만 생성
       const originalDay = currentDate.getDate();
-      nextDate.setMonth(nextDate.getMonth() + rule.interval * occurrenceCount);
+      const targetMonth = currentDate.getMonth() + rule.interval * occurrenceCount;
+      nextDate.setMonth(targetMonth);
 
       // 월말 처리: 31일이 없는 월의 경우 31일에 생성하지 않음
-      const daysInMonth = new Date(nextDate.getFullYear(), nextDate.getMonth() + 1, 0).getDate();
+      const daysInMonth = new Date(nextDate.getFullYear(), targetMonth + 1, 0).getDate();
       if (originalDay > daysInMonth) {
         return null; // 해당 월에는 발생하지 않음
       }

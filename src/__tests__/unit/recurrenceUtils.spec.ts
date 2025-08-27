@@ -89,7 +89,7 @@ describe('반복 일정 유틸리티', () => {
         };
 
         // 2월 (28일) - null을 반환해야 함
-        const febResult = getNextRecurrenceDate(new Date('2024-01-31'), rule, 2);
+        const febResult = getNextRecurrenceDate(new Date('2024-01-31'), rule, 1);
         expect(febResult).toBeNull();
 
         // 3월 (31일) - 3월 31일을 반환해야 함
